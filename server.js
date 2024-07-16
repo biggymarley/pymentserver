@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const sgMail = require("@sendgrid/mail");
+const env = require("dotenv").config({ path: "./.env" });
 const corsOptions = {
   origin: process.env.ORIGIN,
 };
@@ -13,7 +14,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Replace if using a different env file or config
-const env = require("dotenv").config({ path: "./.env" });
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
