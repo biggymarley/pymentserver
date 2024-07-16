@@ -5,7 +5,7 @@ const sgMail = require("@sendgrid/mail");
 const corsOptions = {
   origin: process.env.ORIGIN,
 };
-
+const storename = "deals4deals";
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -38,11 +38,11 @@ app.post("/api/sendconfirmation", async (req, res) => {
     const msg = {
       to: req.body.to, // Change to your recipient
       from: {
-        name: 'Aquafeast',
-        email: 'contact@aquafeast.shop',
-    }, // Change to your verified sender
-      subject: "Thank You for Your Purchase from Aquafeast!",
-      text: "Thank you for choosing Aquafeast for your recent purchase! We truly appreciate your support and are delighted to have you as a valued customer. Your order has been successfully processed, and we are currently preparing it for shipment. You will receive another email with tracking information once your order has been shipped. If you have any questions or need further assistance, please do not hesitate to contact our customer support team at contact@aquafeast.shop Thank you again for your purchase. We hope you enjoy your new products! Best regards, The Aquafeast Team",
+        name: `${storename}`,
+        email: `contact@${storename}.shop`,
+      }, // Change to your verified sender
+      subject: `Thank You for Your Purchase from ${storename}!`,
+      text: `Thank you for choosing ${storename} for your recent purchase! We truly appreciate your support and are delighted to have you as a valued customer. Your order has been successfully processed, and we are currently preparing it for shipment. You will receive another email with tracking information once your order has been shipped. If you have any questions or need further assistance, please do not hesitate to contact our customer support team at contact@${storename}.shop Thank you again for your purchase. We hope you enjoy your new products! Best regards, The ${storename} Team`,
       html: `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -77,12 +77,12 @@ app.post("/api/sendconfirmation", async (req, res) => {
   <body>
     <div class="container">
       <div class="header">
-        <h1>Thank You for Your Purchase from Aquafeast!</h1>
+        <h1>Thank You for Your Purchase from ${storename}!</h1>
       </div>
       <div class="content">
         
         <p>
-          Thank you for choosing Aquafeast for your recent purchase! We truly
+          Thank you for choosing ${storename} for your recent purchase! We truly
           appreciate your support and are delighted to have you as a valued
           customer.
         </p>
@@ -95,7 +95,7 @@ app.post("/api/sendconfirmation", async (req, res) => {
           order has been shipped. If you have any questions or need further
           assistance, please do not hesitate to contact our customer support
           team at
-          <a href="mailto:contact@aquafeast.shop">contact@aquafeast.shop</a>
+          <a href="mailto:contact@${storename}.shop">contact@${storename}.shop</a>
          .
         </p>
         <p>
@@ -106,8 +106,8 @@ app.post("/api/sendconfirmation", async (req, res) => {
       <div class="footer">
         <p>Best regards,</p>
         <p>
-          The Aquafeast Team<br />
-          <a href="https://www.aquafeast.shop/">https://www.aquafeast.shop/</a><br />
+          The ${storename} Team<br />
+          <a href="https://www.${storename}.shop/">https://www.${storename}.shop/</a><br />
         </p>
       </div>
     </div>
