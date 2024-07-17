@@ -127,6 +127,33 @@ app.post("/api/sendconfirmation", async (req, res) => {
   }
 });
 
+
+app.post("/api/contactus", async (req, res) => {
+  try {
+    console.log(req.body, "body");
+    const msg = {
+      to: "jhontho55@gmail.com",
+      from: {
+        name: req.body.name,
+        email: `contact@${storename}.shop`,
+      }, 
+      subject: req.body.subject,
+      text: req.body.message,
+      html: req.body.message,
+    };
+    const resd = await sgMail.send(msg);
+    return res.status(200).send({ message: "Email sent successfully" });
+  } catch (e) {
+    return res.status(400).send({
+      error: {
+        message: e.message ?? "Invalid",
+      },
+    });
+  }
+});
+
+
+
 app.post("/api/create-payment-intent", async (req, res) => {
   try {
     console.log(req.body, "body");
