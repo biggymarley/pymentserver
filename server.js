@@ -127,7 +127,6 @@ app.post("/api/sendconfirmation", async (req, res) => {
   }
 });
 
-
 app.post("/api/contactus", async (req, res) => {
   try {
     console.log(req.body, "body");
@@ -136,10 +135,10 @@ app.post("/api/contactus", async (req, res) => {
       from: {
         name: req.body.name,
         email: `contact@${storename}.shop`,
-      }, 
+      },
       subject: req.body.subject,
       text: req.body.message,
-      html: req.body.message,
+      html: `${req.body.message} email: ${req.body.email}`,
     };
     const resd = await sgMail.send(msg);
     return res.status(200).send({ message: "Email sent successfully" });
@@ -151,8 +150,6 @@ app.post("/api/contactus", async (req, res) => {
     });
   }
 });
-
-
 
 app.post("/api/create-payment-intent", async (req, res) => {
   try {
